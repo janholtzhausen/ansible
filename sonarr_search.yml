@@ -1,0 +1,21 @@
+- name: Direct Sonarr to Search for Wanted Items
+  hosts: localhost
+  tasks:
+  - name: Search for all wanted items in Sonarr
+    uri:
+      url: "http://your-sonarr-server-address:port/api/command"
+      method: POST
+      body_format: json
+      body:
+        name: "command"
+        seasonIds: []
+        episodeIds: []
+        name: "MissingEpisodeSearch"
+    headers:
+      Content-Type: "application/json"
+      X-Api-Key: "your-sonarr-api-key"
+    register: result
+
+  - name: Debug Sonarr API response
+    debug:
+      var: result
