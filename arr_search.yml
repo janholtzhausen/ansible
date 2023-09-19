@@ -1,0 +1,57 @@
+- name: Direct Sonarr to Search for Wanted Items
+  hosts: localhost
+  tasks:
+  - name: Search for all wanted items in Sonarr
+    uri:
+      url: "{{ sonarr_server }}/api/v3/command"
+      method: POST
+      body_format: json
+      status_code: 200,201
+      body:
+        name: "command"
+        seasonIds: []
+        episodeIds: []
+        name: "MissingEpisodeSearch"
+      headers:
+        Content-Type: "application/json"
+        X-Api-Key: "{{ sonarr_api_key }}"
+      user: "{{ sonarr_username }}"
+      password: "{{ sonarr_password }}"
+      force_basic_auth: yes
+    register: result
+
+  - name: Search for all wanted items in Lidarr
+    uri:
+      url: "{{ lidarr_server }}/api/v1/command"
+      method: POST
+      body_format: json
+      status_code: 200,201
+      body:
+        name: "MissingAlbumSearch"
+      headers:
+        Content-Type: "application/json"
+        X-Api-Key: "{{ lidarr_api_key }}"
+      user: "{{ lidarr_username }}"
+      password: "{{ lidarr_password }}"
+      force_basic_auth: yes
+    register: result
+
+  - name: Search for all wanted items in Readarr
+    uri:
+      url: "{{ readarr_server }}/api/v1/command"
+      method: POST
+      body_format: json
+      status_code: 200,201
+      body:
+        name: "MissingBookSearch"
+      headers:
+        Content-Type: "application/json"
+        X-Api-Key: "{{ readarr_api_key }}"
+      user: "{{ readarr_username }}"
+      password: "{{ readarr_password }}"
+      force_basic_auth: yes
+    register: result
+
+  - name: Debug API response
+    debug:
+      var: result
