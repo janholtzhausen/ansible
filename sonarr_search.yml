@@ -3,7 +3,7 @@
   tasks:
   - name: Search for all wanted items in Sonarr
     uri:
-      url: "http://your-sonarr-server-address:port/api/command"
+      url: "{{ sonarr_server }}/api/command"
       method: POST
       body_format: json
       body:
@@ -13,7 +13,7 @@
         name: "MissingEpisodeSearch"
     headers:
       Content-Type: "application/json"
-      X-Api-Key: "your-sonarr-api-key"
+      X-Api-Key: "{{ sonarr_api_key }}"
     register: result
 
   - name: Debug Sonarr API response
