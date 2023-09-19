@@ -3,7 +3,7 @@
   tasks:
   - name: Search for all wanted items in Sonarr
     uri:
-      url: "{{ sonarr_server }}/api/command"
+      url: "{{ sonarr_server }}/api/v3/command"
       method: POST
       body_format: json
       body:
