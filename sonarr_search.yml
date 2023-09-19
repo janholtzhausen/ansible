@@ -1,5 +1,5 @@
 - name: Direct Sonarr to Search for Wanted Items
-  hosts: localhost
+  hosts: all
   tasks:
   - name: Search for all wanted items in Sonarr
     uri:
