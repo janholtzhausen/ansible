@@ -20,6 +20,11 @@
       force_basic_auth: yes
     register: result
 
+  - name: Debug Sonarr response
+    debug:
+      var: result
+
+
   - name: Search for all wanted items in Lidarr
     uri:
       url: "{{ lidarr_server }}/api/v1/command"
@@ -35,6 +40,11 @@
       password: "{{ lidarr_password }}"
       force_basic_auth: yes
     register: result
+
+  - name: Debug Lidarr response
+    debug:
+      var: result
+
 
   - name: Search for all wanted items in Readarr
     uri:
@@ -52,6 +62,6 @@
       force_basic_auth: yes
     register: result
 
-  - name: Debug API response
+  - name: Debug Readarr response
     debug:
       var: result
